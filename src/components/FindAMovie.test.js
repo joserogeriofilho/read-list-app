@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import FindAMovie from './FindAMovie';
 
-describe('testing the find a movie component', () => {
+describe('testing the FindAMovie component', () => {
 
   it('renders the title', () => {
     const { getByText } = render(

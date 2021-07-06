@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import WatchList from './WatchList';
 
-describe('testing the watch list component', () => {
+describe('testing the WatchList component', () => {
 
   it('renders the title', () => {
     const { getByText } = render(
