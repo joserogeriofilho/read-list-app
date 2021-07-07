@@ -1,3 +1,17 @@
+import axios from "axios";
+
+// Using the Node adapter to enable testing with Nock
+axios.defaults.adapter = require('axios/lib/adapters/http');
+
+const api = axios.create({
+  baseURL: "http://openlibrary.org",
+});
+
 export const search = title => {
-  return null;
+  return api.get("search.json", { params: { title } }).then( result => {
+    return result.data.docs.map(item => ({
+      title: item.title,
+      author: item.author_name ? item.author_name.join() : 'Unknown author'
+    }));
+  });
 }
