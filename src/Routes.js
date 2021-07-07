@@ -1,17 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import WatchList from './components/WatchList'
-import FindAMovie from './components/FindAMovie'
-import Watched from './components/Watched'
+import ToRead from './components/ToRead'
+import FindABook from './components/FindABook'
+import Finished from './components/Finished'
 
 
 export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <RouteWrapper isPrivate={true} path='/' exact component={WatchList} />
-        <RouteWrapper isPrivate={true} path='/find' component={FindAMovie} />
-        <RouteWrapper isPrivate={true} path='/watched' component={Watched} />
+        <RouteWrapper isPrivate={true} path='/' exact component={ToRead} />
+        <RouteWrapper isPrivate={true} path='/find' component={FindABook} />
+        <RouteWrapper isPrivate={true} path='/finished' component={Finished} />
         {/* <RouteWrapper isPrivate={false} path='/login' component={Login} />
 
         {/* Redirects a user to a valid path in case of 404 */}
