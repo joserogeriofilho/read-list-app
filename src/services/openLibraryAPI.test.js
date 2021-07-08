@@ -2,9 +2,9 @@ import { search } from './openLibraryAPI';
 import nock from 'nock';
 
 const OPEN_LIBRARY_MOCK_RESPONSE = {
-  "numFound": 4,
-  "num_found": 4,
-  "docs": [
+  numFound: 4,
+  num_found: 4,
+  docs: [
     {
       title: 'Prometheus Rising',
       author_name: [ 'Robert Anton Wilson' ]
