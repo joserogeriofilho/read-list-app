@@ -28,6 +28,17 @@ nock('http://openlibrary.org')
 
 describe('testing the FindABook component', () => {
 
+  let originalError;
+
+  beforeAll(() => {
+    originalError = console.error;
+    console.error = jest.fn();
+  });
+
+  afterAll(() => {
+    console.error = originalError;
+  });
+
   it('renders the title', () => {
     const { getByText } = render( <FindABook /> );
     expect(getByText(/find a book/i)).toBeInTheDocument();
