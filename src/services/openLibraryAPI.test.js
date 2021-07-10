@@ -62,7 +62,7 @@ describe('open library API', () => {
   
   it('should transform data from OpenLibrary API', async () => {
     const books = await search('prometheus rising');
-    expect(books.length).toEqual(4);
+    expect(books.length).toEqual(BOOKS_FROM_MOCK_RESPONSE.length);
     expect(books).toEqual(BOOKS_FROM_MOCK_RESPONSE);
   });
 
