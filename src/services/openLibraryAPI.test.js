@@ -7,16 +7,50 @@ const OPEN_LIBRARY_MOCK_RESPONSE = {
   docs: [
     {
       title: 'Prometheus Rising',
-      author_name: [ 'Robert Anton Wilson' ]
+      author_name: [ 'Robert Anton Wilson' ],
+      key: '/works/OL1805249W'
     },
-    { title: 'Prometheus Rising', author_name: [ 'D. F. Wink' ] },
-    { title: 'Prometheus Rising', author_name: [ 'D. Wink' ] },
+    {
+      title: 'Prometheus Rising',
+      author_name: [ 'D. F. Wink' ],
+      key: '/works/OL24231100W'
+    },
+    {
+      title: 'Prometheus Rising',
+      author_name: [ 'D. Wink' ],
+      key: '/works/OL20900300W'
+    },
     {
       title: 'Prometheus, or the rise of moral evil: a satire',
-      author_name: undefined
+      author_name: undefined,
+      key: '/works/OL18368290M'
     }
   ]
 }
+
+const BOOKS_FROM_MOCK_RESPONSE = [
+  {
+    title: 'Prometheus Rising',
+    author: 'Robert Anton Wilson',
+    key: '/works/OL1805249W'
+  },
+  {
+    title: 'Prometheus Rising',
+    author: 'D. F. Wink',
+    key: '/works/OL24231100W'
+  },
+  {
+    title: 'Prometheus Rising',
+    author: 'D. Wink',
+    key: '/works/OL20900300W'
+  },
+  {
+    title: 'Prometheus, or the rise of moral evil: a satire',
+    author: 'Unknown author',
+    key: '/works/OL18368290M'
+  }
+]
+
 
 // Mock the server response for the search endpoint
 nock('http://openlibrary.org')
@@ -26,9 +60,10 @@ nock('http://openlibrary.org')
 
 describe('open library API', () => {
   
-  it('should return a promise', async () => {
+  it('should transform data from OpenLibrary API', async () => {
     const books = await search('prometheus rising');
-    expect(books.length).toBeGreaterThan(0);
+    expect(books.length).toEqual(4);
+    expect(books).toEqual(BOOKS_FROM_MOCK_RESPONSE);
   });
 
 });

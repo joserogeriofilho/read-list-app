@@ -1,17 +1,19 @@
 import bookReducer, {
   addBook,
   markAsRead
-} from './booksSlice';
+} from './bookSlice';
 
 const BOOK_1 = {
   title: 'Prometheus Rising',
-  author: 'Robert Anton Wilson'
+  author: 'Robert Anton Wilson',
+  key: '/works/OL1805249W'
 }
 
 const STATE_BOOK_1_UNREAD = [
   {
     title: 'Prometheus Rising',
     author: 'Robert Anton Wilson',
+    key: '/works/OL1805249W',
     read: false
   }
 ];
@@ -20,6 +22,7 @@ const STATE_BOOK_1_READ = [
   {
     title: 'Prometheus Rising',
     author: 'Robert Anton Wilson',
+    key: '/works/OL1805249W',
     read: true
   }
 ];
@@ -27,23 +30,29 @@ const STATE_BOOK_1_READ = [
 
 describe('counter books', () => {
   const initialState = {
-    books: []
+    toRead: []
   };
   
   it('should handle initial state', () => {
     expect(bookReducer(undefined, { type: 'unknown' })).toEqual({
-      books: []
+      toRead: []
+    });
+  });
+
+  it('should handle initial state not empty', () => {
+    expect(bookReducer({ toRead: [BOOK_1] }, { type: 'unknown' })).toEqual({
+      toRead: [BOOK_1]
     });
   });
 
   it('should add a book to the read list', () => {
     const actual = bookReducer(initialState, addBook(BOOK_1));
-    expect(actual.books).toEqual(STATE_BOOK_1_UNREAD);
+    expect(actual.toRead).toEqual(STATE_BOOK_1_UNREAD);
   });
 
   it('should mark a book as read', () => {
-    const actual = bookReducer([BOOK_1], markAsRead(BOOK_1.title, BOOK_1.author));
-    expect(actual.books).toEqual(STATE_BOOK_1_READ);
+    const actual = bookReducer({ toRead: [BOOK_1] }, markAsRead(BOOK_1.key));
+    expect(actual.toRead).toEqual(STATE_BOOK_1_READ);
   });
 
 });
