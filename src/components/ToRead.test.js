@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import ToRead from './ToRead';
+import App from '../App';
 
 describe('testing the ToRead component', () => {
 
@@ -11,7 +12,7 @@ describe('testing the ToRead component', () => {
     expect(getByText(/to read List/i)).toBeInTheDocument();
   });
 
-  it('shows some instruction text and a action button', () => {
+  it('should show some instruction text and action button', () => {
     const { getByText } = render(
       <ToRead />
     );
@@ -20,6 +21,17 @@ describe('testing the ToRead component', () => {
     expect(getByText(/try finding some interesting books./i)).toBeInTheDocument();
 
     expect(getByText(/find books/i)).toBeInTheDocument();
+  });
+
+  it('should go to the FindABook route when clicking in the action button', async () => {
+    const component = render( <App /> );
+    const button = component.getByText(/find books/i);
+
+    fireEvent.click(button);
+
+    const findABookTitle = await component.findByText(/find a book/i)
+  
+    expect(findABookTitle).toBeInTheDocument();
   });
 
 })
