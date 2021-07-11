@@ -2,6 +2,29 @@ import { render, fireEvent } from '@testing-library/react';
 import ToRead from './ToRead';
 import App from '../App';
 
+const BOOKS = [
+  {
+    title: 'Prometheus Rising',
+    author: 'Robert Anton Wilson',
+    key: '/works/OL1805249W'
+  },
+  {
+    title: 'Prometheus Rising',
+    author: 'D. F. Wink',
+    key: '/works/OL24231100W'
+  },
+  {
+    title: 'Prometheus Rising',
+    author: 'D. Wink',
+    key: '/works/OL20900300W'
+  },
+  {
+    title: 'Prometheus, or the rise of moral evil: a satire',
+    author: 'Unknown author',
+    key: '/works/OL18368290M'
+  }
+]
+
 describe('testing the ToRead component', () => {
 
   it('shows the title', () => {
@@ -32,6 +55,17 @@ describe('testing the ToRead component', () => {
     const findABookTitle = await component.findByText(/find a book/i)
   
     expect(findABookTitle).toBeInTheDocument();
+  });
+
+  it('should render a list of books', async () => {
+    const { getAllByRole } = render( <ToRead books={BOOKS} /> );
+    const itens = getAllByRole('listitem');
+
+    expect(itens).toHaveLength(BOOKS.length);
+
+    BOOKS.forEach( (book, index) => {
+      expect(itens[index].textContent).toContain(book.title);
+    });
   });
 
 })
