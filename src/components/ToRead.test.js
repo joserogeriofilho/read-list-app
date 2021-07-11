@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import ToRead from './ToRead';
-import App from '../App';
 
 const BOOKS = [
   {
@@ -47,7 +47,12 @@ describe('testing the ToRead component', () => {
   });
 
   it('should go to the FindABook route when clicking in the action button', async () => {
-    const component = render( <App /> );
+    const component = render(
+      <BrowserRouter>
+        <ToRead />
+        <Route path="/find">Find a Book</Route>
+      </BrowserRouter>
+    );
     const button = component.getByText(/find books/i);
 
     fireEvent.click(button);
