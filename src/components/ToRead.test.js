@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import ToRead from './ToRead';
+import ToRead, { ToReadView } from './ToRead';
 
 const BOOKS = [
   {
@@ -47,23 +47,22 @@ describe('testing the ToRead component', () => {
   });
 
   it('should go to the FindABook route when clicking in the action button', async () => {
-    const component = render(
+    const { getByText, findByText } = render(
       <BrowserRouter>
         <ToRead />
         <Route path="/find">Find a Book</Route>
       </BrowserRouter>
     );
-    const button = component.getByText(/find books/i);
 
-    fireEvent.click(button);
+    fireEvent.click(getByText(/find books/i));
 
-    const findABookTitle = await component.findByText(/find a book/i)
+    const findABookTitle = await findByText(/find a book/i)
   
     expect(findABookTitle).toBeInTheDocument();
   });
 
   it('should render a list of books', async () => {
-    const { getAllByRole } = render( <ToRead books={BOOKS} /> );
+    const { getAllByRole } = render( <ToReadView books={BOOKS} /> );
     const itens = getAllByRole('listitem');
 
     expect(itens).toHaveLength(BOOKS.length);

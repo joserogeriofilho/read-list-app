@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 
-function ToReadView({books}) {
+export function ToReadView({books}) {
   const history = useHistory();
 
   const goToFindABook = () => {
@@ -10,8 +10,13 @@ function ToReadView({books}) {
   return (
     <div>
       <h1>To Read List</h1>
-      { books &&
-        <span>There are books to be read!</span>
+      { books && books.map((item, index) => (
+          <li key={index}>
+            <span>{item.title}</span>
+            <br/>
+            <span>{item.author}</span>
+          </li>
+        ))
       }
       { !books &&
         <div>
@@ -24,33 +29,10 @@ function ToReadView({books}) {
   )
 }
 
-const BOOKS_FROM_MOCK_RESPONSE = [
-  {
-    title: 'Prometheus Rising',
-    author: 'Robert Anton Wilson',
-    key: '/works/OL1805249W'
-  },
-  {
-    title: 'Prometheus Rising',
-    author: 'D. F. Wink',
-    key: '/works/OL24231100W'
-  },
-  {
-    title: 'Prometheus Rising',
-    author: 'D. Wink',
-    key: '/works/OL20900300W'
-  },
-  {
-    title: 'Prometheus, or the rise of moral evil: a satire',
-    author: 'Unknown author',
-    key: '/works/OL18368290M'
-  }
-]
-
 function toReadRedux() {
   return(
-    <ToReadView books={BOOKS_FROM_MOCK_RESPONSE} />
+    <ToReadView />
   )
 }
 
-export default ToReadView;
+export default toReadRedux;
