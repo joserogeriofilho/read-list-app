@@ -1,4 +1,6 @@
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectBooks } from '../redux/bookSlice';
 
 export function ToReadView({books}) {
   const history = useHistory();
@@ -10,7 +12,7 @@ export function ToReadView({books}) {
   return (
     <div>
       <h1>To Read List</h1>
-      { books && books.map((item, index) => (
+      { books && books.length > 0 && books.map((item, index) => (
           <li key={index}>
             <span>{item.title}</span>
             <br/>
@@ -29,10 +31,14 @@ export function ToReadView({books}) {
   )
 }
 
-function toReadRedux() {
+function ToReadRedux() {
+  const books = useSelector(selectBooks);
+
+  console.log('books', books);
+
   return(
-    <ToReadView />
+    <ToReadView books={books} />
   )
 }
 
-export default toReadRedux;
+export default ToReadRedux;

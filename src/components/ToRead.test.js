@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import ToRead, { ToReadView } from './ToRead';
 
@@ -28,42 +28,34 @@ const BOOKS = [
 describe('testing the ToRead component', () => {
 
   it('shows the title', () => {
-    const { getByText } = render(
-      <ToRead />
-    );
-  
-    expect(getByText(/to read List/i)).toBeInTheDocument();
+    render( <ToReadView /> );
+    expect(screen.getByText(/to read List/i)).toBeInTheDocument();
   });
 
   it('should show some instruction text and action button', () => {
-    const { getByText } = render(
-      <ToRead />
-    );
+    render( <ToReadView /> );
   
-    expect(getByText(/nothing was added to the list yet./i)).toBeInTheDocument();
-    expect(getByText(/try finding some interesting books./i)).toBeInTheDocument();
-
-    expect(getByText(/find books/i)).toBeInTheDocument();
+    expect(screen.getByText(/nothing was added to the list yet./i)).toBeInTheDocument();
+    expect(screen.getByText(/try finding some interesting books./i)).toBeInTheDocument();
+    expect(screen.getByText(/find books/i)).toBeInTheDocument();
   });
 
   it('should go to the FindABook route when clicking in the action button', async () => {
-    const { getByText, findByText } = render(
+    render(
       <BrowserRouter>
-        <ToRead />
+        <ToReadView />
         <Route path="/find">Find a Book</Route>
       </BrowserRouter>
     );
 
-    fireEvent.click(getByText(/find books/i));
-
-    const findABookTitle = await findByText(/find a book/i)
+    fireEvent.click(screen.getByText(/find books/i));
   
-    expect(findABookTitle).toBeInTheDocument();
+    expect(await screen.findByText(/find a book/i)).toBeInTheDocument();
   });
 
   it('should render a list of books', async () => {
-    const { getAllByRole } = render( <ToReadView books={BOOKS} /> );
-    const itens = getAllByRole('listitem');
+    render( <ToReadView books={BOOKS} /> );
+    const itens = screen.getAllByRole('listitem');
 
     expect(itens).toHaveLength(BOOKS.length);
 
