@@ -9,6 +9,12 @@ const BOOK_1 = {
   key: '/works/OL1805249W'
 }
 
+const BOOK_2 = {
+  title: 'American Gods',
+  author: 'Neil Gaiman',
+  key: '/works/OL1815249W'
+}
+
 const STATE_BOOK_1_UNREAD = [
   {
     title: 'Prometheus Rising',
@@ -45,9 +51,12 @@ describe('counter books', () => {
     });
   });
 
-  it('should add a book to the read list', () => {
-    const actual = bookReducer(initialState, addBook(BOOK_1));
-    expect(actual.toRead).toEqual(STATE_BOOK_1_UNREAD);
+  it('should add books to the read list', () => {
+    let addBook1 = bookReducer(initialState, addBook(BOOK_1));
+    let addBook2 = bookReducer(addBook1, addBook(BOOK_2));
+    expect(addBook2.toRead).toHaveLength(2);
+    expect(addBook2.toRead[0]).toEqual({...BOOK_1, read: false});
+    expect(addBook2.toRead[1]).toEqual({...BOOK_2, read: false});
   });
 
   it('should mark a book as read', () => {
