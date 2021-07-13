@@ -20,7 +20,7 @@ export function ToReadView({books}) {
           </li>
         ))
       }
-      { !books &&
+      { !books || books.length === 0 &&
         <div>
           <p>Nothing was added to the list yet.</p>
           <p>Try finding some interesting books.</p>
@@ -33,8 +33,6 @@ export function ToReadView({books}) {
 
 function ToReadRedux() {
   const books = useSelector(selectBooks);
-
-  console.log('books', books);
 
   return(
     <ToReadView books={books} />

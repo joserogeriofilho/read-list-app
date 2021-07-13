@@ -1,5 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 import ToRead, { ToReadView } from './ToRead';
 
 const BOOKS = [
@@ -25,15 +27,34 @@ const BOOKS = [
   }
 ]
 
+function renderWithReduxProvider() {
+  return render(
+    <Provider store={store}>
+      <ToRead />
+    </Provider>
+  )
+}
+
+function renderWithReduxProviderAndRoutes() {
+  return render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <ToRead />
+        <Route path="/find">Find a Book</Route>
+      </BrowserRouter>
+    </Provider>
+  )
+}
+
 describe('testing the ToRead component', () => {
 
   it('shows the title', () => {
-    render( <ToReadView /> );
+    renderWithReduxProvider();
     expect(screen.getByText(/to read List/i)).toBeInTheDocument();
   });
 
   it('should show some instruction text and action button', () => {
-    render( <ToReadView /> );
+    renderWithReduxProvider();
   
     expect(screen.getByText(/nothing was added to the list yet./i)).toBeInTheDocument();
     expect(screen.getByText(/try finding some interesting books./i)).toBeInTheDocument();
@@ -41,12 +62,7 @@ describe('testing the ToRead component', () => {
   });
 
   it('should go to the FindABook route when clicking in the action button', async () => {
-    render(
-      <BrowserRouter>
-        <ToReadView />
-        <Route path="/find">Find a Book</Route>
-      </BrowserRouter>
-    );
+    renderWithReduxProviderAndRoutes();
 
     fireEvent.click(screen.getByText(/find books/i));
   
