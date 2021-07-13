@@ -1,8 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { render, fireEvent, screen } from './test-utils';
 import nock from 'nock';
-// import { renderWithReduxProvider } from './test-utils';
 import App from './App';
 
 const OPEN_LIBRARY_MOCK_RESPONSE = {
@@ -38,12 +35,6 @@ nock('http://openlibrary.org')
   .get('/search.json?title=prometheus+rising')
   .reply(200, OPEN_LIBRARY_MOCK_RESPONSE);
 
-const renderWithReduxProvider = () => render(
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
-
 
 describe('testing the App component', () => {
 
@@ -59,7 +50,7 @@ describe('testing the App component', () => {
   });
 
   it('should add some itens in the to read list', async () => {    
-    renderWithReduxProvider();
+    render(<App />);
     expect(screen.getByText(/to read list/i)).toBeInTheDocument();
 
     // click on the button 'find' and go to the 'find a book' page

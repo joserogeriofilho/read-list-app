@@ -1,8 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '../test-utils';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
-import ToRead, { ToReadView } from './ToRead';
+import ToRead from './ToRead';
+
 
 const BOOKS = [
   {
@@ -27,14 +28,6 @@ const BOOKS = [
   }
 ]
 
-function renderWithReduxProvider() {
-  return render(
-    <Provider store={store}>
-      <ToRead />
-    </Provider>
-  )
-}
-
 function renderWithReduxProviderAndRoutes() {
   return render(
     <Provider store={store}>
@@ -49,12 +42,12 @@ function renderWithReduxProviderAndRoutes() {
 describe('testing the ToRead component', () => {
 
   it('shows the title', () => {
-    renderWithReduxProvider();
+    render(<ToRead />);
     expect(screen.getByText(/to read List/i)).toBeInTheDocument();
   });
 
   it('should show some instruction text and action button', () => {
-    renderWithReduxProvider();
+    render(<ToRead />);
   
     expect(screen.getByText(/nothing was added to the list yet./i)).toBeInTheDocument();
     expect(screen.getByText(/try finding some interesting books./i)).toBeInTheDocument();
@@ -69,8 +62,8 @@ describe('testing the ToRead component', () => {
     expect(await screen.findByText(/find a book/i)).toBeInTheDocument();
   });
 
-  it('should render a list of books', async () => {
-    render( <ToReadView books={BOOKS} /> );
+  it('should render a list of books', () => {
+    render( <ToRead />, { preloadedState: { books: { toRead: BOOKS } } } );
     const itens = screen.getAllByRole('listitem');
 
     expect(itens).toHaveLength(BOOKS.length);

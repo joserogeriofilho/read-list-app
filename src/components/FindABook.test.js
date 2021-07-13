@@ -1,6 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { render, fireEvent, screen } from '../test-utils';
 import nock from 'nock';
 import FindABook from './FindABook';
 
@@ -28,12 +26,6 @@ nock('http://openlibrary.org')
   .get('/search.json?title=prometheus+rising')
   .reply(200, OPEN_LIBRARY_MOCK_RESPONSE);
 
-const renderWithReduxProvider = () => render(
-  <Provider store={store}>
-    <FindABook />
-  </Provider>
-);
-
 
 describe('testing the FindABook component', () => {
 
@@ -49,17 +41,17 @@ describe('testing the FindABook component', () => {
   });
 
   it('renders the title', () => {
-    const { getByText } = renderWithReduxProvider();
-    expect(getByText(/find a book/i)).toBeInTheDocument();
+    render(<FindABook />);
+    expect(screen.getByText(/find a book/i)).toBeInTheDocument();
   });
 
   it('should have an input with placeholder', () => {
-    const { getByPlaceholderText } = renderWithReduxProvider();
-    expect(getByPlaceholderText(/enter a book's title/i)).toBeInTheDocument();
+    render(<FindABook />);
+    expect(screen.getByPlaceholderText(/enter a book's title/i)).toBeInTheDocument();
   });
 
   it('should render a list of books after filling the input search', async () => {  
-    renderWithReduxProvider();
+    render(<FindABook />);
 
     fireEvent.change(
       screen.getByPlaceholderText(/enter a book's title/i), 
