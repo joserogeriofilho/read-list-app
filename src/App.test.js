@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import nock from 'nock';
+// import { renderWithReduxProvider } from './test-utils';
 import App from './App';
 
 const OPEN_LIBRARY_MOCK_RESPONSE = {
@@ -57,9 +58,36 @@ describe('testing the App component', () => {
     console.error = originalError;
   });
 
-  it('should add some itens in the to read list', () => {
+  it('should add some itens in the to read list', async () => {    
     renderWithReduxProvider();
     expect(screen.getByText(/to read list/i)).toBeInTheDocument();
+
+    // click on the button 'find' and go to the 'find a book' page
+    fireEvent.click(screen.getByText(/find books/i));
+    expect(await screen.findByText(/find a book/i)).toBeInTheDocument();
+
+    // enter a book's title
+    fireEvent.change(
+      screen.getByPlaceholderText(/enter a book's title/i), 
+      {target: { value: 'prometheus rising' }}
+    );
+
+    const itensOnFindPage = await screen.findAllByRole('listitem');
+
+    expect(itensOnFindPage).toHaveLength(OPEN_LIBRARY_MOCK_RESPONSE.docs.length);
+
+    // click on two options
+    fireEvent.click(itensOnFindPage[0]);
+    fireEvent.click(itensOnFindPage[1]);
+
+    // go back to the 'to read' page
+    window.history.back();
+    expect(await screen.findByText(/to read list/i)).toBeInTheDocument();
+
+    const itensToReadPage = await screen.findAllByRole('listitem');
+    expect(itensToReadPage).toHaveLength(2);
+    expect(itensToReadPage[0].textContent).toContain('Robert Anton Wilson');
+    expect(itensToReadPage[1].textContent).toContain('D. F. Wink');
   });
 
 });
