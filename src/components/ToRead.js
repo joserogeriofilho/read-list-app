@@ -12,7 +12,7 @@ export function ToReadView({books}) {
   return (
     <div>
       <h1>To Read List</h1>
-      { books && books.length > 0 && books.map((item, index) => (
+      { (books && books.length > 0) && books.map((item, index) => (
           <li key={index}>
             <span>{item.title}</span>
             <br/>
@@ -20,7 +20,7 @@ export function ToReadView({books}) {
           </li>
         ))
       }
-      { !books || books.length === 0 &&
+      { (!books || books.length === 0) &&
         <div>
           <p>Nothing was added to the list yet.</p>
           <p>Try finding some interesting books.</p>
