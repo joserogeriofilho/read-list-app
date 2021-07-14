@@ -5,9 +5,10 @@ import FindABook from './components/FindABook'
 import Finished from './components/Finished'
 
 
-export default function Routes() {
+export default function Routes({children}) {
   return (
     <BrowserRouter>
+      { children }
       <Switch>
         <RouteWrapper isPrivate={true} path='/' exact component={ToRead} />
         <RouteWrapper isPrivate={true} path='/find' component={FindABook} />

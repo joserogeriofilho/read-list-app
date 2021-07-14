@@ -56,7 +56,7 @@ export default function FindABook() {
   }
 
   return (
-    <div>
+    <div className={'page'}>
       <h1>Find a Book</h1>
       <input
         type="text"
