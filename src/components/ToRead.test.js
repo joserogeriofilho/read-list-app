@@ -43,7 +43,7 @@ describe('testing the ToRead component', () => {
 
   it('shows the title', () => {
     render(<ToRead />);
-    expect(screen.getByText(/to read List/i)).toBeInTheDocument();
+    expect(screen.getByText(/to read list/i)).toBeInTheDocument();
   });
 
   it('should show some instruction text and action button', () => {
