@@ -13,7 +13,7 @@ export const bookSlice = createSlice({
     },
     markAsRead: (state, action) => {
       let book = state.toRead.filter(item => item.key === action.payload);
-      book[0].read = true;
+      book[0].read = !book[0].read;
     }
   }
 });

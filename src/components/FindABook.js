@@ -29,7 +29,7 @@ export default function FindABook() {
   }
 
   const onChangeTitle = debounce( async value => {
-    if(value.length < 3) {
+    if(value.length < 4) {
       setBooks([]);
       return null;
     }

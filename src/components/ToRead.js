@@ -1,10 +1,18 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectBooks } from '../redux/bookSlice';
+import { selectBooks, markAsRead } from '../redux/bookSlice';
+import { useDispatch } from 'react-redux';
 
 
-export function ToReadView({books}) {
+export default function ToRead() {
   const history = useHistory();
+  const books = useSelector(selectBooks);
+  const dispatch = useDispatch(); 
+
+  const handleBookClick = event => {
+    const index = event.target.name;
+    dispatch(markAsRead(books[index].key));
+  }
 
   const goToFindABook = () => {
     history.push('/find')
@@ -16,9 +24,19 @@ export function ToReadView({books}) {
       <ul>
         { (books && books.length > 0) && books.map((item, index) => (
             <li key={index}>
-              <span>{item.title}</span>
-              <br/>
-              <span>{item.author}</span>
+              <input
+                type="checkbox"
+                id={`book-${index}`}
+                data-testid={`book-${index}`}
+                name={`${index}`}
+                checked={item.read ? true : false}
+                onChange={handleBookClick}
+              />
+                <label htmlFor={`book-${index}`}>
+                <span>{item.title}</span>
+                <br/>
+                <span>{item.author}</span>
+              </label>
             </li>
           ))
         }
@@ -33,13 +51,3 @@ export function ToReadView({books}) {
     </div>
   )
 }
-
-function ToReadRedux() {
-  const books = useSelector(selectBooks);
-
-  return(
-    <ToReadView books={books} />
-  )
-}
-
-export default ToReadRedux;
