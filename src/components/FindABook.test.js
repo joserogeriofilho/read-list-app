@@ -50,6 +50,17 @@ describe('testing the FindABook component', () => {
     expect(screen.getByPlaceholderText(/enter a book's title/i)).toBeInTheDocument();
   });
 
+  it('should not render a list of books after filling the input search with less than 3 characters', () => {  
+    render(<FindABook />);
+
+    fireEvent.change(
+      screen.getByPlaceholderText(/enter a book's title/i), 
+      {target: { value: 'pro' }}
+    );
+    
+    expect(screen.queryAllByTestId('listitem')).toHaveLength(0);
+  });
+
   it('should render a list of books after filling the input search', async () => {  
     render(<FindABook />);
 

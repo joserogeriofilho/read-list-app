@@ -73,4 +73,14 @@ describe('testing the ToRead component', () => {
     });
   });
 
+  it('should check a book as finished', () => {
+    render( <ToRead />, { preloadedState: { books: { toRead: BOOKS } } } );
+    
+    expect(screen.getByTestId('book-1')).not.toBeChecked();
+    
+    fireEvent.click(screen.getByText(/d. f. wink/i));
+
+    expect(screen.getByTestId('book-1')).toBeChecked();
+  });
+
 })
