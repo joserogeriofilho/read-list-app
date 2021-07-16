@@ -4,7 +4,7 @@ import axios from "axios";
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const api = axios.create({
-  baseURL: "http://openlibrary.org",
+  baseURL: "https://openlibrary.org",
 });
 
 export const search = title => {

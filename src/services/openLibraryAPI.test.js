@@ -53,7 +53,7 @@ const BOOKS_FROM_MOCK_RESPONSE = [
 
 
 // Mock the server response for the search endpoint
-nock('http://openlibrary.org')
+nock('https://openlibrary.org')
   .persist()
   .get('/search.json?title=prometheus+rising')
   .reply(200, OPEN_LIBRARY_MOCK_RESPONSE);
