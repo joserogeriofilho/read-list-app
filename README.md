@@ -5,7 +5,8 @@
   [![Build Status][build-badge]](build) [![Tests Status][tests-badge]](tests) [![Coverage][coverage-badge]](coverage)
 
   A simple reading list React application developed with TDD.
-  Live demo [here](http://joserogeriofilho.github.io/read-list-app).
+
+  Live demo **[here](http://joserogeriofilho.github.io/read-list-app)**.
 
   [![telas](https://user-images.githubusercontent.com/12038461/125882675-e09b758f-3657-49ca-9c40-50f4f0a83c0a.png)](http://joserogeriofilho.github.io/read-list-app)
 
@@ -24,9 +25,9 @@ The application was built for study purpose on the Test Driven Development (TDD)
 
 
 
-[tests]: https://github.com/joserogeriofilho/read-list-app/actions/workflows/node.test.yml
+[tests]: https://github.com/joserogeriofilho/read-list-app/actions?query=workflow%3Anode-test
 [tests-badge]: https://img.shields.io/github/workflow/status/joserogeriofilho/read-list-app/node-test?label=Tests
-[build]: https://github.com/joserogeriofilho/read-list-app/actions/workflows/node.build.yml
+[build]: https://github.com/joserogeriofilho/read-list-app/actions?query=workflow%3Anode-build
 [build-badge]: https://img.shields.io/github/workflow/status/joserogeriofilho/read-list-app/node-build?label=Build
-[coverage]: http://www.google.com.br
+[coverage]: https://app.codecov.io/gh/joserogeriofilho/read-list-app
 [coverage-badge]: https://img.shields.io/codecov/c/github/joserogeriofilho/read-list-app?label=Coverage
