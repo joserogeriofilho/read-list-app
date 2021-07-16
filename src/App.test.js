@@ -49,7 +49,7 @@ describe('testing the App component', () => {
     console.error = originalError;
   });
 
-  it('should add some itens in the to read list', async () => {    
+  it('should add some itens in the to read list, mark them as read and them show them on the finished page', async () => {    
     render(<App />);
     expect(screen.getByText(/to read list/i)).toBeInTheDocument();
 
@@ -79,6 +79,16 @@ describe('testing the App component', () => {
     expect(itensToReadPage).toHaveLength(2);
     expect(itensToReadPage[0].textContent).toContain('Robert Anton Wilson');
     expect(itensToReadPage[1].textContent).toContain('D. F. Wink');
+
+    // mark books as read
+    fireEvent.click(screen.getByText(/robert anton wilson/i));
+    fireEvent.click(screen.getByText(/d. f. wink/i));
+
+    // go to finished page
+    fireEvent.click(screen.getByText(/finished/i));
+
+    expect(screen.getByText(/robert anton wilson/i)).toBeInTheDocument();
+    expect(screen.getByText(/d. f. wink/i)).toBeInTheDocument();
   });
 
 });
