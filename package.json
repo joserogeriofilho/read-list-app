@@ -40,6 +40,8 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
+    "gh-pages": "^3.2.3",
     "nock": "^13.1.1"
-  }
+  },
+  "homepage": "http://joserogeriofilho.github.io/read-list-app"
 }
