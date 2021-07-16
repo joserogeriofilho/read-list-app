@@ -2,7 +2,7 @@
 
   # Read-List App
 
-  [![Tests Status][tests-badge]](tests) [![Build Status][build-badge]](build)
+  [![Build Status][build-badge]](build) [![Tests Status][tests-badge]](tests) [![Coverage][coverage-badge]](coverage)
 
   A simple reading list React application developed with TDD.
   Live demo [here](http://joserogeriofilho.github.io/read-list-app).
@@ -28,3 +28,5 @@ The application was built for study purpose on the Test Driven Development (TDD)
 [tests-badge]: https://img.shields.io/github/workflow/status/joserogeriofilho/read-list-app/node-test?label=Tests
 [build]: https://github.com/joserogeriofilho/read-list-app/actions/workflows/node.build.yml
 [build-badge]: https://img.shields.io/github/workflow/status/joserogeriofilho/read-list-app/node-build?label=Build
+[coverage]: http://www.google.com.br
+[coverage-badge]: https://img.shields.io/codecov/c/github/joserogeriofilho/read-list-app?label=Coverage
