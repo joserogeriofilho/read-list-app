@@ -2,7 +2,7 @@
 
   # Read-List App
 
-  [![Build Status][build-badge]](build) [![Tests Status][tests-badge]](tests) [![Coverage][coverage-badge]](coverage)
+  [![Build Status][build-badge]][build] [![Tests Status][tests-badge]][tests] [![Coverage][coverage-badge]][coverage]
 
   A simple reading list React application developed with TDD.
 
