@@ -13,7 +13,7 @@
 </div>
 
 ## About
-This is a simple React application that uses the [Open Library](https://openlibrary.org/) to search for books and add them into a read list. The books then can be marked as read and are shown in the Finished page.
+This is a simple React application that uses the [Open Library](https://openlibrary.org/) API to search for books and add them into a read list. The books then can be marked as read and are shown in the Finished page.
 
 The application was built for study purpose on the Test Driven Development (TDD), Redux and React technologies.
 
